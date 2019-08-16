@@ -10,17 +10,19 @@ export default class Products extends Component {
             <Container>
                 <h1>Produtos</h1>
                 <article>
-                    <section>
-                        <div>
-                            <h3>Descrição:</h3>
-                            <input type="text" placeholder="Digite a descrição do produto"/>
-                        </div>
-                        <div>
-                            <h3>Preço:</h3>
-                            <input type="text" placeholder="Ex: R$ 99,99"/>
-                        </div>
-                    </section>
-                    <button type="button">Salvar</button>
+                    <form>
+                        <section>
+                            <div>
+                                <h3>Descrição:</h3>
+                                <input type="text" placeholder="Digite a descrição do produto"/>
+                            </div>
+                            <div>
+                                <h3>Preço:</h3>
+                                <input type="text" placeholder="Ex: R$ 99,99"/>
+                            </div>
+                        </section>
+                        <button type="button">Salvar</button>
+                    </form>
                     <ListBox>
                         <h2>Lista de Produtos</h2>
                         <ul>
@@ -55,16 +57,42 @@ export const Container = styled.div`
         display: flex;
         flex-direction:column;
         align-items:center;
-        section {
+
+        form {
             width: 50%;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
+            
+            section {
+                display: flex;
+                justify-content: space-between;
+                color: #444;
+                input {
+                    margin: 10px 0;
+                    padding: 0 10px;
+                    height: 35px;
+                    background: #fff;
+                    border: 1px solid #444;
+                    border-radius: 5px;
+                    font-size: 14px;
+                }
+            }
+
+            button {
+                margin: 10px 0;
+                width: 100%;
+                height: 55px;
+                background: #478c02;
+                color: #fff;
+                border: 0;
+                font-size: 20px;
+                font-weight: bold;
+                border-radius: 5px;
+                &:hover {
+                    background: #315F02;
+                }
+            }
         }
-        button {
-            width: 50%;
-            margin-bottom: 20px;
-        }
+
+        
     }
 `;
 
