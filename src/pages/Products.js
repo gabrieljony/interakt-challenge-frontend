@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-
 import styled from "styled-components";
-
 import { Icon } from 'antd';
+import {listProduct} from 'gql/product'
 
 export default class Products extends Component {
     render() {
