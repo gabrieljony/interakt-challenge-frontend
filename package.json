@@ -2,7 +2,7 @@
     "name": "interakt-challenge-frontend",
     "version": "1.0.0",
     "main": "index.js",
-    "repository": "",
+    "repository": "https://github.com/gabrieljony/interakt-challenge-frontend.git",
     "author": "Gabriel Jony <gabjony@gmail.com>",
     "license": "",
     "private": true,
