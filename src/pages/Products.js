@@ -3,8 +3,29 @@ import styled from "styled-components";
 import { Icon } from 'antd';
 import {listProduct} from 'gql/product'
 
-export default class Products extends Component {
+class Products extends Component {
+    renderTodoList = () => (
+        <div>
+            <ul>
+        { this.props.todos.product.map(todo =>
+            console.log(todo)
+                <li>
+                    <h2>1</h2>
+                </li>
+                <li>
+                    <h3>Produto 1</h3>
+                    <span>R$ 90,00</span>
+                </li>
+                <li>
+                    <Icon type="edit" theme="filled" />
+                <Icon type="delete" theme="filled" />
+                </li>
+        )}
+            </ul>
+        </div>
+      )
     render() {
+        const { todos } = this.props;
         return (
             <Container>
                 <h1>Produtos</h1>
@@ -24,19 +45,7 @@ export default class Products extends Component {
                     </form>
                     <ListBox>
                         <h2>Lista de Produtos</h2>
-                        <ul>
-                            <li>
-                                <h2>1</h2>
-                            </li>
-                            <li>
-                                <h3>Produto 1</h3>
-                                <span>R$ 90,00</span>
-                            </li>
-                            <li>
-                                <Icon type="edit" theme="filled" />
-                            <Icon type="delete" theme="filled" />
-                            </li>
-                        </ul>
+                        { todos.loading ? <p>Carregando...</p> : this.renderTodoList() }
                     </ListBox>
                 </article>
             </Container>
@@ -116,3 +125,16 @@ export const ListBox = styled.div`
 
         }
 `;
+
+export const listProduct = gql`
+  query product($limit: Int){
+    product(limite: $limit) {
+        description
+        id
+        price
+    }
+  }`;
+
+  export default compose( 
+      graphql(listProduct, { name: 'todos' }),
+  )(Products);
