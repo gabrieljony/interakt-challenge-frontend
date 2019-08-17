@@ -1,15 +1,15 @@
-import gql from 'graphql-tag'
+import { gql } from 'graphql-boost'
 
 /*
-* Lista de Produtos buscado pelo parametro uuid
+* Lista dos Produtos
 */
 export const listProduct = gql`
-  query product_by_pk($id: uuid!){
-    product_by_pk(uuid: $id) {
-        created_at
-        description
-        id
-        price
-        updated_at
-    }
-  }`;
+query product{
+  product {
+    created_at
+      id
+      description
+      price
+      updated_at
+  }
+}`;
