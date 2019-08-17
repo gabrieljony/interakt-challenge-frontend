@@ -1,31 +1,9 @@
 import React, { Component } from 'react'
 import styled from "styled-components";
-import { Icon } from 'antd';
-import {listProduct} from 'gql/product'
+import ProductsList from "./ProductsList";
 
-class Products extends Component {
-    renderTodoList = () => (
-        <div>
-            <ul>
-        { this.props.todos.product.map(todo =>
-            console.log(todo)
-                <li>
-                    <h2>1</h2>
-                </li>
-                <li>
-                    <h3>Produto 1</h3>
-                    <span>R$ 90,00</span>
-                </li>
-                <li>
-                    <Icon type="edit" theme="filled" />
-                <Icon type="delete" theme="filled" />
-                </li>
-        )}
-            </ul>
-        </div>
-      )
+export default class Products extends Component {
     render() {
-        const { todos } = this.props;
         return (
             <Container>
                 <h1>Produtos</h1>
@@ -45,7 +23,7 @@ class Products extends Component {
                     </form>
                     <ListBox>
                         <h2>Lista de Produtos</h2>
-                        { todos.loading ? <p>Carregando...</p> : this.renderTodoList() }
+                        <ProductsList/>
                     </ListBox>
                 </article>
             </Container>
@@ -65,10 +43,9 @@ export const Container = styled.div`
         display: flex;
         flex-direction:column;
         align-items:center;
-
         form {
             width: 50%;
-            
+
             section {
                 display: flex;
                 justify-content: space-between;
@@ -83,7 +60,6 @@ export const Container = styled.div`
                     font-size: 14px;
                 }
             }
-
             button {
                 margin: 10px 0;
                 width: 100%;
@@ -100,7 +76,6 @@ export const Container = styled.div`
             }
         }
 
-        
     }
 `;
 
@@ -113,28 +88,4 @@ export const ListBox = styled.div`
         h2{
             padding: 15px 30px;
         }
-
-        ul {
-            padding: 15px 30px;
-            align-items:center;
-            display:flex;
-            justify-content: space-between;
-            i{
-                padding: 0 10px
-            }
-
-        }
 `;
-
-export const listProduct = gql`
-  query product($limit: Int){
-    product(limite: $limit) {
-        description
-        id
-        price
-    }
-  }`;
-
-  export default compose( 
-      graphql(listProduct, { name: 'todos' }),
-  )(Products);
