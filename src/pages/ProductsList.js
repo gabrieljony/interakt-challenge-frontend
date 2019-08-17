@@ -1,46 +1,42 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from "styled-components";
 import { Icon } from 'antd';
-// import { listProduct } from '../graphql/product';
+import { listProduct } from '../graphql/product';
+import { Query } from 'react-apollo';
 
-import { gql } from 'apollo-boost';
-import { graphql } from "react-apollo";
-
-class ProductsList extends Component {
+export default class ProductsList extends Component {
     render() {
-        console.log(this.props);
         return (
-            <List>
-                <li>
-                    <h2>1</h2>
-                </li>
-                <li>
-                    <h3>Produto 1</h3>
-                    <span>R$ 90,00</span>
-                </li>
-                <li>
-                    <Icon type="edit" theme="filled" />
-                    <Icon type="delete" theme="filled" />
-                </li>
-            </List>
+            <Fragment>
+                <Query query={ listProduct }>
+                {({ data, loading, error }) => {
+                if (loading) return <p>Carregando...</p>;
+                if (error) return <div>Error</div>;
+                return (
+                    <div>
+                        { data.product.map(resp =>(
+                            <List key={ resp.id }>
+                                <li>
+                                    <h2>1</h2>
+                                </li>
+                                <li>
+                                    <h3>{ resp.description }</h3>
+                                    <span>{ resp.price }</span>
+                                </li>
+                                <li>
+                                    <Icon type="edit" theme="filled" />
+                                    <Icon type="delete" theme="filled" />
+                                </li>
+                            </List>
+                        )) }
+                    </div>
+                    );
+                }}
+                </Query>
+            </Fragment>
         )
     }
 }
-
-const listProduct = gql`
-    query product {
-        product {
-            created_at
-            id
-            description
-            price
-            updated_at
-        }
-    }
-`;
-
-export default graphql(listProduct, {name: "todos"})(ProductsList)
-
 
 export const List = styled.ul`
     padding: 15px 30px;
