@@ -14,3 +14,21 @@ export const listProduct = gql`
         }
     }
 `;
+
+/*
+* Inserir Produto
+*/
+export const insertProduct = gql`
+    mutation insert_product($id: String!, $description: String!, $price: String!){
+        insert_product(uuid: $id, descricao: $description, preco: $price){
+            affected_rows
+            returning{
+                created_at
+                description
+                id
+                price
+                updated_at
+            }
+        }
+    }
+`;
