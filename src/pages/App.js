@@ -28,11 +28,15 @@ export default App;
 
 export const Container = styled.div`
   display: flex;
-  aside {
-    width: 5%;
-  }
   main {
-      width: 95%;
       padding: 40px;
+  }
+  @media(min-width: 769px){
+    main {
+        width:100%;
+    }
+  }
+  @media(max-width: 768px){
+    flex-direction: column;
   }
 `;

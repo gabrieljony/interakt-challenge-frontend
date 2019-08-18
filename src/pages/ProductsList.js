@@ -43,7 +43,7 @@ export const List = styled.ul`
     align-items:center;
     display:flex;
     justify-content: space-between;
-    i{
+    i {
         padding: 0 10px
     }
 `;

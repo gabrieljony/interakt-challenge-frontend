@@ -22,5 +22,5 @@ export const Menu = styled.header`
   font-size: 120%;
   box-shadow: 2px 5px 10px #627179;
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
 `;

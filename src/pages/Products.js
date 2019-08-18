@@ -7,12 +7,12 @@ export default class Products extends Component {
         return (
             <Container>
                 <h1>Produtos</h1>
-                <article>
+                <ProductsBox>
                     <form>
                         <section>
                             <div>
                                 <h3>Descrição:</h3>
-                                <input type="text" placeholder="Digite a descrição do produto"/>
+                                <input type="text" placeholder="Digite a descrição do produto..."/>
                             </div>
                             <div>
                                 <h3>Preço:</h3>
@@ -25,7 +25,7 @@ export default class Products extends Component {
                         <h2>Lista de Produtos</h2>
                         <ProductsList/>
                     </ListBox>
-                </article>
+                </ProductsBox>
             </Container>
         )
     }
@@ -38,44 +38,55 @@ export const Container = styled.div`
         padding-bottom: 10px;
         border-bottom:solid 1px;
     }
-    article {
-        padding: 40px;
-        display: flex;
-        flex-direction:column;
-        align-items:center;
-        form {
-            width: 50%;
+`;
+export const ProductsBox = styled.div`
+    padding: 40px 0;
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    form {
+    width: 50%;
 
-            section {
-                display: flex;
-                justify-content: space-between;
-                color: #444;
-                input {
-                    margin: 10px 0;
-                    padding: 0 10px;
-                    height: 35px;
-                    background: #fff;
-                    border: 1px solid #444;
-                    border-radius: 5px;
-                    font-size: 14px;
-                }
-            }
-            button {
+        section {
+            display: flex;
+            justify-content: space-between;
+            color: #444;
+            input {
                 margin: 10px 0;
-                width: 100%;
-                height: 55px;
-                background: #478c02;
-                color: #fff;
-                border: 0;
-                font-size: 20px;
-                font-weight: bold;
+                padding: 0 10px;
+                height: 35px;
+                background: #fff;
+                border: 1px solid #444;
                 border-radius: 5px;
-                &:hover {
-                    background: #315F02;
-                }
+                font-size: 14px;
             }
         }
+        button {
+            margin: 10px 0;
+            width: 100%;
+            height: 55px;
+            background: #478c02;
+            color: #fff;
+            border: 0;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            &:hover {
+                background: #315F02;
+            }
+        }
+    }
+    @media(max-width: 768px){
+        form{
 
+        width: 100%;
+        }
+    }
+    @media(max-width: 480px){
+        section {
+            flex-direction: column;
+            align-items:flex-start;
+        }
     }
 `;
 

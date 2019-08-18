@@ -15,10 +15,10 @@ export default class Sidebar extends Component {
                         <NavLink to="/"><Icon type="home" theme="filled" /></NavLink>
                     </li>
                     <li>
-                    <NavLink to="/delivery"><Icon type="file" theme="filled" /></NavLink>
+                        <NavLink to="/delivery"><Icon type="file" theme="filled" /></NavLink>
                     </li>
                     <li>
-                    <NavLink to="/products"><Icon type="golden" theme="filled" /></NavLink>
+                        <NavLink to="/products"><Icon type="golden" theme="filled" /></NavLink>
                     </li>
                 </ul>
             </Navigation>
@@ -31,6 +31,8 @@ export const Navigation = styled.nav`
   color: #ffffff;
 
   ul {
+      display: flex;
+      flex-direction: column;
     li {
       :hover,
       :active {
@@ -41,6 +43,13 @@ export const Navigation = styled.nav`
         justify-content: center;
         padding: 15px;
       }
+    }
+  }
+
+  @media(max-width: 768px){
+    ul {
+        flex-direction: row;
+        justify-content: space-around;
     }
   }
 `;
