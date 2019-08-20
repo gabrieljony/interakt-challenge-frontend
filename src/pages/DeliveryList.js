@@ -1,43 +1,30 @@
 import React, { Component, Fragment } from 'react';
 import styled from "styled-components";
-import { Icon, Spin, Alert } from 'antd';
-import { listProduct } from '../graphql/product';
-import { Query } from 'react-apollo';
+import { Icon } from 'antd';
 
-export default class ProductsList extends Component {
+export default class DeliveryList extends Component {
     render() {
         return (
             <Fragment>
-                <Query query={ listProduct }>
-                {({ data, loading, error }) => {
-                if (loading) return <section><Spin size="large" /></section>;
-                if (error) return <section><Alert
-                message="Error"
-                description="A conexão falhou. Favor aguardar normalização."
-                type="error"
-                showIcon
-              /></section>;
-                return (
+
                     <div>
-                        { data.product.map(resp =>(
-                            <List key={ resp.id }>
+
+                            <List >
                                 <li>
                                     <h4>1</h4>
                                 </li>
                                 <li>
-                                    <h3>{ resp.description }</h3>
-                                    <span>{ resp.price }</span>
+                                    <h3>ff</h3>
+                                    <span></span>
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />
                                     <Icon type="delete" theme="filled" />
                                 </li>
                             </List>
-                        )) }
+
                     </div>
-                    );
-                }}
-                </Query>
+
             </Fragment>
         )
     }

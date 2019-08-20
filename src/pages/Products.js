@@ -91,12 +91,16 @@ export const ProductsBox = styled.div`
 `;
 
 export const ListBox = styled.div`
-        display:flex;
-        flex-direction:column;
-        justify-content: flex-start;
-        width: 50%;
-        border:solid 1px;
-        h2{
-            padding: 15px 30px;
-        }
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    width: 50%;
+    border:solid 1px;
+    h2{
+        padding: 15px 30px;
+    }
+    section {
+        text-align:center;
+        margin: 15px;
+    }
 `;
