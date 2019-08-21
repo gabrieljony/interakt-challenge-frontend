@@ -16,6 +16,23 @@ export const listProduct = gql`
 `;
 
 /*
+* Lista de Produtos ordenada por ordem alfabética
+*/
+export const listProductAsc = gql`
+    query product {
+        product(order_by:{
+            description: asc
+          }){
+            created_at
+            id
+            description
+            price
+            updated_at
+        }
+    }
+`;
+
+/*
 * Inserir Produto
 */
 export const insertProduct = gql`
@@ -30,5 +47,21 @@ export const insertProduct = gql`
                 updated_at
             }
         }
+    }
+`;
+
+/*
+* Lista de Trasnportadora ordenada por ordem alfabética
+*/
+export const listCarrierAsc = gql`
+    query carrier{
+        carrier(order_by:{
+            name: asc
+          }){
+            created_at
+            id
+            name
+            updated_at
+          }
     }
 `;

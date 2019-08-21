@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import styled from "styled-components";
-import { Input, Select, DatePicker } from 'antd';
+import { Input, Select, DatePicker, Spin, Alert } from 'antd';
 import DeliveryList from "./DeliveryList";
+import { listCarrierAsc, listProductAsc } from '../graphql/product';
+import { Query } from 'react-apollo';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -18,28 +20,57 @@ export default class Delivery extends Component {
                         </section>
                         <section>
                             <div>
-                                <section>
+                                <Query query={ listCarrierAsc }>
+                                    {({ data, loading, error }) => {
+                                    console.log(data)
+                                    if (loading) return <section><Spin size="large" /></section>;
+                                    if (error) return <section><Alert
+                                    message="Error"
+                                    description="A conexão falhou. Favor aguardar normalização."
+                                    type="error"
+                                    showIcon
+                                /></section>;
+                                    return (
+                                        <section>
+                                            <h3>Entregador:</h3>
+                                            <Select placeholder="Selecione o entregador">
+                                            { data.carrier.map(resp =>(
+                                                <Option value={ resp.name } key={ resp.id }>{ resp.name }</Option>
+                                                )) }
+                                            </Select>
+                                        </section>
+                                    );
+                                }}
+                                </Query>
 
-                            <h3>Entregador:</h3>
-                            <Select placeholder="Selecione o entregador">
-                                <Option value="lu">Jack</Option>
-                                <Option value="lucy">Lucy</Option>
-                            </Select>
-                                </section>
                                 <section>
-
-                            <h3>Data:</h3>
-                            <DatePicker/>
+                                    <h3>Data:</h3>
+                                    <DatePicker/>
                                 </section>
                             </div>
                         </section>
-                        <section>
-                            <h3>Produtos:</h3>
-                            <Select placeholder="Selecione os produtos para essa entrega">
-                                <Option value="lu">Jack</Option>
-                                <Option value="lucy">Lucy</Option>
-                            </Select>
-                        </section>
+                        <Query query={ listProductAsc }>
+                                    {({ data, loading, error }) => {
+                                    console.log(data)
+                                    if (loading) return <section><Spin size="large" /></section>;
+                                    if (error) return <section><Alert
+                                    message="Error"
+                                    description="A conexão falhou. Favor aguardar normalização."
+                                    type="error"
+                                    showIcon
+                                /></section>;
+                                    return (
+                                <section>
+                                    <h3>Produtos:</h3>
+                                    <Select placeholder="Selecione os produtos para essa entrega">
+                                        { data.product.map(resp =>(
+                                            <Option value={ resp.description } key={ resp.id }>{ resp.description }</Option>
+                                        )) }
+                                    </Select>
+                                </section>
+                                );
+                            }}
+                        </Query>
                         <section>
                             <h3>Descrição:</h3>
                             <TextArea rows={4} placeholder="Escreva observações sobre a entrega a ser feita"/>
