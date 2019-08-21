@@ -5,9 +5,6 @@ import { listProduct } from '../graphql/product';
 import { Query } from 'react-apollo';
 
 export default class ProductsList extends Component {
-    getMoney(str){
-        return parseInt( str.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2") );
-    }
     render() {
         return (
             <Fragment>
@@ -29,7 +26,7 @@ export default class ProductsList extends Component {
                                 </li>
                                 <li>
                                     <h3>{ resp.description }</h3>
-                                    <span>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(resp.price.replace("$", "").replace(",", "").replace(",", "").replace(",", ""))}</span>
+                                    <span>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(resp.price.replace(/\D/g, ''))}</span>
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />
@@ -48,14 +45,17 @@ export default class ProductsList extends Component {
 
 export const List = styled.ul`
     padding: 15px 30px;
-    align-items:center;
     display:flex;
+    align-items:center;
     justify-content: space-between;
     h4 {
         background-color: #1d4bc2;
         color: #fff;
         border-radius: 5px;
         padding: 10px 15px;
+    }
+    h3 {
+        margin-bottom: 5px;
     }
     i {
         padding: 0 10px

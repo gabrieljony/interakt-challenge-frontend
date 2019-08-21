@@ -103,4 +103,7 @@ export const ListBox = styled.div`
         text-align:center;
         margin: 15px;
     }
+    @media(max-width: 768px){
+        width: 100%;
+    }
 `;
