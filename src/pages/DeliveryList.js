@@ -4,6 +4,7 @@ import { Icon, Spin, Alert } from 'antd';
 import { listDelivery } from '../graphql/product';
 import { Query } from 'react-apollo';
 import { format } from 'date-fns';
+import addDays from 'date-fns/addDays'
 
 
 export default class DeliveryList extends Component {
@@ -28,7 +29,7 @@ export default class DeliveryList extends Component {
                                 </li>
                                 <li>
                                     <h3>{ resp.address }</h3>
-                                    <span>{ format(new Date(resp.date), "dd/MM/yyyy") }</span>
+                                    <span>{ format(addDays(new Date(resp.date), '1'), "dd/MM/yyyy") }</span>
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />
