@@ -65,3 +65,23 @@ export const listCarrierAsc = gql`
           }
     }
 `;
+
+/*
+* Lista de Entregas 
+*/
+export const listDelivery = gql`
+    query delivery{
+        delivery{
+            address
+            carrier_id
+            created_at
+            date
+            description
+            id
+            lat
+            lng
+            status
+            updated_at
+        }
+    }
+`;
