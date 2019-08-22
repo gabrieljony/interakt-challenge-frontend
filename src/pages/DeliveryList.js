@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Icon, Spin, Alert } from 'antd';
 import { listDelivery } from '../graphql/product';
 import { Query } from 'react-apollo';
+import { format } from 'date-fns';
+
 
 export default class DeliveryList extends Component {
     render() {
@@ -26,7 +28,7 @@ export default class DeliveryList extends Component {
                                 </li>
                                 <li>
                                     <h3>{ resp.address }</h3>
-                                    <span>{ resp.date }</span>
+                                    <span>{ format(new Date(resp.date), "dd/MM/yyyy") }</span>
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />
