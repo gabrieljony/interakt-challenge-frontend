@@ -29,7 +29,8 @@ export default class DeliveryList extends Component {
                                 </li>
                                 <li>
                                     <h3>{ resp.address }</h3>
-                                    <span>{ format(addDays(new Date(resp.date), '1'), "dd/MM/yyyy") }</span>
+                                    <span>{ format(addDays(new Date(resp.date), '1'), "dd/MM/yyyy") }</span><br></br>
+                                    <span>{ new Intl.DateTimeFormat('pt-BR').format(new Date(resp.date)) }</span>
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />
