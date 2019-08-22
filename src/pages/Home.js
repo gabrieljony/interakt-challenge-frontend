@@ -1,25 +1,47 @@
 import React, { Component } from 'react'
 import styled from "styled-components";
+import { Spin, Alert } from 'antd';
+import { listDelivery } from '../graphql/product';
+import { Query } from 'react-apollo';
 
 export default class Home extends Component {
+    checkStatus(event){
+        if(event === 'pending') return 'PENDENTE';
+    }
     render() {
         return (
             <Container>
                 <h1>Painel de Entregas</h1>
                 <div>
                     <h2>Acompanhamento de Entregas</h2>
-                    <List>
-                        <li>
-                            <h4>1</h4>
-                        </li>
-                        <li>
-                            <h3>ll</h3>
-                            <span>algo</span>
-                        </li>
-                        <li>
-                         <strong>Pendente</strong>
-                        </li>
-                    </List>
+                    <Query query={ listDelivery }>
+                        {({ data, loading, error }) => {
+                        if (loading) return <section><Spin size="large" /></section>;
+                        if (error) return <section><Alert
+                        message="Error"
+                        description="A conexão falhou. Favor aguardar normalização."
+                        type="error"
+                        showIcon
+                    /></section>;
+                        return (
+                        <>
+                            { data.delivery.map(resp =>(
+                                <List key={ resp.id }>
+                                    <li>
+                                        <h4>1</h4>
+                                    </li>
+                                    <li>
+                                        <h3>{ resp.address }</h3>
+                                    </li>
+                                    <li>
+                                    <strong>{ this.checkStatus(resp.status) }</strong>
+                                    </li>
+                                </List>
+                                )) }
+                        </>
+                        );
+                    }}
+                    </Query>
                 </div>
 
             </Container>
