@@ -36,9 +36,16 @@ export const listProductAsc = gql`
 * Inserir Produto
 */
 export const insertProduct = gql`
-    mutation insert_product($id: String!, $description: String!, $price: String!){
-        insert_product(uuid: $id, descricao: $description, preco: $price){
-            affected_rows
+    mutation insert_product(
+            $description: String!,
+            $price: money!
+        ){
+        insert_product(
+            objects: {
+                    description: $description,
+                    price: $price
+                }
+            ){
             returning{
                 created_at
                 description
@@ -67,7 +74,7 @@ export const listCarrierAsc = gql`
 `;
 
 /*
-* Lista de Entregas 
+* Lista de Entregas
 */
 export const listDelivery = gql`
     query delivery{

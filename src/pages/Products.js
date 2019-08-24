@@ -1,26 +1,56 @@
 import React, { Component } from 'react'
 import styled from "styled-components";
 import ProductsList from "./ProductsList";
+import { Mutation } from '@apollo/react-components';
+import { insertProduct } from '../graphql/product';
 
 export default class Products extends Component {
     render() {
+        let description;
+        let price;
         return (
             <Container>
                 <h1>Produtos</h1>
                 <ProductsBox>
-                    <form>
-                        <section>
-                            <div>
-                                <h3>Descrição:</h3>
-                                <input type="text" placeholder="Digite a descrição do produto..."/>
-                            </div>
-                            <div>
-                                <h3>Preço:</h3>
-                                <input type="text" placeholder="Ex: R$ 99,99"/>
-                            </div>
-                        </section>
-                        <button type="button">Salvar</button>
-                    </form>
+                    <Mutation mutation={insertProduct}>
+                        {(insert_product, { data }) => (
+                            <>
+                                <form
+                                    onSubmit={e => {
+                                        e.preventDefault();
+                                        insert_product({
+                                            variables: {
+                                                description: description.value,
+                                                price: price.value
+                                            }
+                                        });
+                                        description.value = '';
+                                        price.value = '';
+                                    }}
+                                  >
+                                    <section>
+                                        <div>
+                                            <h3>Descrição:</h3>
+                                            <input
+                                                ref={node => { description = node; }}
+                                                type="text"
+                                                placeholder="Digite a descrição do produto..."
+                                                />
+                                        </div>
+                                        <div>
+                                            <h3>Preço:</h3>
+                                            <input
+                                                ref={node => { price = node; }}
+                                                type="text"
+                                                placeholder="Ex: R$ 99,99"
+                                            />
+                                        </div>
+                                    </section>
+                                    <button type="submit">Salvar</button>
+                                </form>
+                            </>
+                        )}
+                    </Mutation>
                     <ListBox>
                         <h2>Lista de Produtos</h2>
                         <ProductsList/>
