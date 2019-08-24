@@ -63,17 +63,18 @@ export const Container = styled.div`
         align-items: center;
         justify-content: center;
         h2 {
+            margin-bottom: 10px;
             font-size: 150%;
         }
     }
 `;
 
 export const List = styled.ul`
-    margin: 40px 0;
+    margin: 0;
     padding: 20px;
     display:flex;
     align-items:center;
-    justify-content: space-around;
+    justify-content: space-between;
     border: solid 1px;
     width: 50%;
     h4 {

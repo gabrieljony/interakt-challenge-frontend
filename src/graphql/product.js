@@ -5,7 +5,9 @@ import { gql } from 'apollo-boost';
 */
 export const listProduct = gql`
     query product {
-        product {
+        product(order_by:{
+            created_at: desc
+          }) {
             created_at
             id
             description
