@@ -1,26 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import styled from "styled-components";
-import { Icon, Spin, Alert, Modal } from 'antd';
-import { listProduct } from '../graphql/product';
-import { Query } from 'react-apollo';
+import { Icon, Spin, Alert } from 'antd';
+import { listProduct, deleteProduct } from '../graphql/product';
+import { Query, Mutation } from 'react-apollo';
 
-const { confirm } = Modal;
 
-function showDeleteConfirm() {
-    confirm({
-      title: 'Tem certeza de deletar este produto?',
-      content: '',
-      okText: 'Sim',
-      okType: 'danger',
-      cancelText: 'Cancelar',
-      onOk() {
-        console.log('OK');
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
-  }
 export default class ProductsList extends Component {
     render() {
         return (
@@ -44,10 +28,21 @@ export default class ProductsList extends Component {
                                 <li>
                                     <h3>{ resp.description }</h3>
                                     <span>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(resp.price.replace("$", "").replace(",", "").replace(",", "").replace(",", ""))}</span>
+                                    <span>{resp.id}</span>
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />
-                                    <Icon type="delete" theme="filled" onClick={showDeleteConfirm} />
+                                    <Mutation
+                                        mutation={ deleteProduct }
+                                        variables={ {id: resp.id } }
+                                        refetchQueries={() => [
+                                            { query: listProduct }
+                                          ]}
+                                    >
+                                        {(delete_product, { loading, error }) => (
+                                            <Icon type="delete" theme="filled" onClick={() => delete_product({ variables: { id: resp.id } })} />
+                                        )}
+                                    </Mutation>
                                 </li>
                             </List>
                         )) }

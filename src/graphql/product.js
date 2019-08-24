@@ -58,6 +58,25 @@ export const insertProduct = gql`
 `;
 
 /*
+* Deletar Produto
+*/
+export const deleteProduct = gql`
+    mutation delete_product(
+            $id: uuid!
+        ){
+            delete_product(
+            where: {
+                id: {
+                        _eq: $id
+                    }
+                }
+            ){
+            affected_rows
+        }
+    }
+`;
+
+/*
 * Lista de Trasnportadora ordenada por ordem alfabética
 */
 export const listCarrierAsc = gql`
