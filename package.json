@@ -17,6 +17,7 @@
         "date-fns": "^2.0.0",
         "graphql": "^14.4.2",
         "graphql-tag": "^2.10.1",
+        "http-server": "^0.11.1",
         "react": "^16.9.0",
         "react-apollo": "^3.0.0",
         "react-dom": "^16.9.0",
