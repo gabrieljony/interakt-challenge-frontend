@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from "styled-components";
 import ProductsList from "./ProductsList";
 import { Mutation } from '@apollo/react-components';
-import { insertProduct } from '../graphql/product';
+import { insertProduct, listProduct } from '../graphql/product';
 
 export default class Products extends Component {
     render() {
@@ -12,7 +12,11 @@ export default class Products extends Component {
             <Container>
                 <h1>Produtos</h1>
                 <ProductsBox>
-                    <Mutation mutation={insertProduct}>
+                    <Mutation
+                        mutation={insertProduct}
+                        refetchQueries={() => [
+                            { query: listProduct }
+                          ]}>
                         {(insert_product, { data }) => (
                             <>
                                 <form
