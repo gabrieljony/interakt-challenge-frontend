@@ -1,9 +1,26 @@
 import React, { Component, Fragment } from 'react';
 import styled from "styled-components";
-import { Icon, Spin, Alert } from 'antd';
+import { Icon, Spin, Alert, Modal } from 'antd';
 import { listProduct } from '../graphql/product';
 import { Query } from 'react-apollo';
 
+const { confirm } = Modal;
+
+function showDeleteConfirm() {
+    confirm({
+      title: 'Tem certeza de deletar este produto?',
+      content: '',
+      okText: 'Sim',
+      okType: 'danger',
+      cancelText: 'Cancelar',
+      onOk() {
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
 export default class ProductsList extends Component {
     render() {
         return (
@@ -30,7 +47,7 @@ export default class ProductsList extends Component {
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />
-                                    <Icon type="delete" theme="filled" />
+                                    <Icon type="delete" theme="filled" onClick={showDeleteConfirm} />
                                 </li>
                             </List>
                         )) }
@@ -58,7 +75,13 @@ export const List = styled.ul`
         margin-bottom: 5px;
     }
     i {
-        padding: 0 10px
+        padding: 5px 10px;
+        svg {
+            :hover,
+            :active {
+            color: #1d4bc2;
+        }
+      }
     }
 `;
 
