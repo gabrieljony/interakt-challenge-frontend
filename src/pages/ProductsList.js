@@ -43,7 +43,7 @@ export default class ProductsList extends Component {
                                 </li>
                                 <li>
                                     <h3>{ resp.description }</h3>
-                                    <span>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(resp.price.replace(/\D/g, ''))}</span>
+                                    <span>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(resp.price.replace("$", "").replace(",", "").replace(",", "").replace(",", ""))}</span>
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />
