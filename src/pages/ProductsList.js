@@ -28,7 +28,6 @@ export default class ProductsList extends Component {
                                 <li>
                                     <h3>{ resp.description }</h3>
                                     <span>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(resp.price.replace("$", "").replace(",", "").replace(",", "").replace(",", ""))}</span>
-                                    <span>{resp.id}</span>
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />

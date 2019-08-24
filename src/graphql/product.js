@@ -58,6 +58,44 @@ export const insertProduct = gql`
 `;
 
 /*
+* Inserir Entregas
+*/
+export const insertDelivery = gql`
+mutation insert_delivery(
+        $address: String!,
+        $description: String!
+        $carrier_id: uuid!
+        $lat: numeric!
+        $lng: numeric!
+        $date: timestamptz!
+    ){
+        insert_delivery(
+            objects:{
+                address: $address
+                description: $description
+                carrier_id: $carrier_id
+                lat: $lat
+                lng: $lng
+                date: $date
+            }
+        ){
+            affected_rows
+            returning{
+                address
+                carrier_id
+                created_at
+                description
+                id
+                lat
+                lng
+                status
+                updated_at
+            }
+        }
+    }
+`;
+
+/*
 * Deletar Produto
 */
 export const deleteProduct = gql`
