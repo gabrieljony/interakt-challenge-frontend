@@ -23,6 +23,6 @@ $ yarn run prod
 
 ## Template the Challenge
 
-![Home](./prototype/Home.svg)
-![Delivery](./prototype/Delivery.svg)
-![Products](./prototype/Products.svg)
+![Home](./prototype/Home.png)
+![Delivery](./prototype/Delivery.png)
+![Products](./prototype/Products.png)
