@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const mode = process.env.NODE_ENV || 'development'
 const isDev = mode === 'development'
+const FAVICONS_PLUGIN = require("favicons-webpack-plugin");
 
 let SERVICE_URL = JSON.stringify('http://localhost:4000')
 
@@ -81,6 +82,10 @@ module.exports = {
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new webpack.DefinePlugin({
 			SERVICE_URL
-		})
+        }),
+        new FAVICONS_PLUGIN({
+			logo: "./src/assets/favicon.png",
+			inject: true,
+		}),
 	]
 }
