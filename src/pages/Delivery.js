@@ -4,9 +4,19 @@ import { Input, Select, DatePicker, Spin, Alert } from 'antd';
 import DeliveryList from "./DeliveryList";
 import { listCarrierAsc, listProductAsc, insertDelivery, listDelivery } from '../graphql/product';
 import { Query, Mutation } from 'react-apollo';
+import moment from 'moment';
 
 const { Option } = Select;
 const { TextArea } = Input;
+const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+
+function onChange(date, dateString) {
+    console.log(dateString);
+  }
+
+function disabledDate(current) {
+    return current <= moment().endOf('day');
+}
 export default class Delivery extends Component {
     render() {
         let address;
@@ -79,7 +89,12 @@ export default class Delivery extends Component {
 
                                         <section>
                                             <h3>Data:</h3>
-                                            <DatePicker ref={node => { date = node; console.log('date', date) }}/>
+                                            <DatePicker
+                                                placeholder="Selecione a data"
+                                                onChange={onChange}
+                                                disabledDate={disabledDate}
+                                                format={dateFormatList}
+                                                />
                                         </section>
                                     </div>
                                 </section>
