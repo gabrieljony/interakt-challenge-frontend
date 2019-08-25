@@ -4,6 +4,9 @@
     "main": "index.js",
     "repository": "https://github.com/gabrieljony/interakt-challenge-frontend.git",
     "author": "Gabriel Jony <gabjony@gmail.com>",
+    "engines": {
+        "node": "10.16.2"
+    },
     "license": "",
     "private": true,
     "dependencies": {
