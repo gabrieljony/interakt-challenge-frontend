@@ -5,8 +5,6 @@ import { listDelivery } from '../graphql/product';
 import { Query } from 'react-apollo';
 import { format } from 'date-fns';
 import addDays from 'date-fns/addDays'
-
-
 export default class DeliveryList extends Component {
     render() {
         return (
@@ -30,7 +28,6 @@ export default class DeliveryList extends Component {
                                 <li>
                                     <h3>{ resp.address }</h3>
                                     <span>{ format(addDays(new Date(resp.date), '1'), "dd/MM/yyyy") }</span><br></br>
-                                    <span>{ new Intl.DateTimeFormat('pt-BR').format(new Date(resp.date)) }</span>
                                 </li>
                                 <li>
                                     <Icon type="edit" theme="filled" />
