@@ -11,7 +11,7 @@ const FAVICONS_PLUGIN = require("favicons-webpack-plugin");
 let SERVICE_URL = JSON.stringify('http://localhost:4000')
 
 if (process.env.NODE_ENV === 'production') {
-	SERVICE_URL = JSON.stringify('http://www.enderecoparaproducao.com.br')
+	SERVICE_URL = JSON.stringify('https://interakt-challenge-frontend.herokuapp.com')
 }
 
 module.exports = {
