@@ -50,6 +50,22 @@ $ yarn run prod
 -   `prod` - create production build (optimized, slow build time)
 -   `start` - start production server (runs automatically on prod-stage site)
 
+## ATTENTION
+
+Check if the node version is compatible with your machine:
+
+```shell
+$ node --version
+```
+
+package.json
+
+```shell
+"engines": {
+        "node": "10.16.1"
+    },
+```
+
 ## Template the Challenge
 
 ![Home](./prototype/Home.png)
