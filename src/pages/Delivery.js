@@ -10,9 +10,7 @@ const { Option } = Select;
 const { TextArea } = Input;
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
-function onChange(date, dateString) {
-    console.log(dateString);
-  }
+
 
 function disabledDate(current) {
     return current <= moment().endOf('day');
@@ -23,6 +21,59 @@ export default class Delivery extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            date: '',
+            place_formatted: '',
+            place_id: '',
+            place_location: '',
+            place_lat: '',
+            place_lng: '',
+          };
+
+    }
+
+    onChange(date, dateString) {
+
+        // console.log(dateString);
+        // console.log(date);
+
+        // console.log(date.toISOString());
+
+        date = date.toISOString();
+
+      }
+
+    componentDidMount(){
+
+
+          // initialize the autocomplete functionality using the #pac-input input box
+          let inputNode = document.getElementById('pac-input');
+          let autoComplete = new window.google.maps.places.Autocomplete(inputNode);
+
+          autoComplete.addListener('place_changed', () => {
+            let place = autoComplete.getPlace();
+            let location = place.geometry.location;
+            let lat = place.geometry.location.lat();
+            let lng = place.geometry.location.lng();
+            // console.log(location);
+            // console.log(lat);
+
+
+            this.setState({
+              place_formatted: place.formatted_address.toString(),
+              place_id: place.place_id,
+              place_location: location.toString(),
+              place_lat: lat,
+              place_lng: lng,
+            });
+
+            // bring the selected place in view on the map
+
+            marker.setPlace({
+              placeId: place.place_id,
+              location: location,
+            });
+          });
     }
 
 
@@ -33,6 +84,10 @@ export default class Delivery extends Component {
         let lat;
         let lng;
         let date;
+        // console.log(this.state.place_location);
+        // console.log(this.state.place_lat);
+        // console.log(this.state.place_lng);
+         console.log(this.state.date);
         return (
             <Container>
                 <h1>Entregas</h1>
@@ -49,27 +104,32 @@ export default class Delivery extends Component {
                                     e.preventDefault();
                                     insert_delivery({
                                         variables: {
-                                            address: address.value,
+                                            address: address,
                                             description: description.value,
                                             carrier_id: carrier_id.value,
-                                            lat: lat.value,
-                                            lng: lng.value,
-                                            date: date.value
+                                            lat: lat,
+                                            lng: lng,
+                                            date: date
                                         }
                                     });
-                                    address.value = '';
+                                    address = this.state.place_formatted;
                                     description.value = '';
-                                    carrier_id.value = '';
-                                    lat.value = '';
-                                    lng.value = '';
-                                    date.value = '';
+                                    carrier_id.value = this.carrier_id.value;
+                                    lat.value = this.state.place_lat;
+                                    lng.value = this.state.place_lng;
+                                    date = this.state.date;
                                 }}
                             >
                                 <section>
                                     <h3>Local:</h3>
                                     <Input
-                                        ref={node => { address = node; }}
-                                        placeholder="Digite o local da entrega a ser realizada" />
+                                        id='pac-input'
+                                        type='text'
+                                        placeholder='Digite o local da entrega a ser realizada' />
+                                        <p>Endereço: {this.state.place_formatted}</p>
+                                        {/* <p>Location: {this.state.place_location}</p> */}
+                                        <p>lat: {this.state.place_lat}</p>
+                                        <p>lng: {this.state.place_lng}</p>
                                 </section>
                                 <section>
                                     <div>
@@ -90,6 +150,7 @@ export default class Delivery extends Component {
                                                         <Option ref={ carrier_id = resp.id } value={ resp.name } key={ resp.id }>{ resp.name }</Option>
                                                         )) }
                                                     </Select>
+
                                                 </section>
                                             );
                                         }}
@@ -99,16 +160,17 @@ export default class Delivery extends Component {
                                             <h3>Data:</h3>
                                             <DatePicker
                                                 placeholder="Selecione a data"
-                                                onChange={onChange}
+                                                onChange={this.onChange}
                                                 disabledDate={disabledDate}
                                                 format={dateFormatList}
                                                 />
+
                                         </section>
                                     </div>
                                 </section>
                                 <Query query={ listProductAsc }>
                                             {({ data, loading, error }) => {
-                                            console.log(data)
+                                            // console.log(data)
                                             if (loading) return <section><Spin size="large" /></section>;
                                             if (error) return <section><Alert
                                             message="Error"

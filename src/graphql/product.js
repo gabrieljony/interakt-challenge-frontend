@@ -90,6 +90,7 @@ mutation insert_delivery(
                 id
                 lat
                 lng
+                date
                 status
                 updated_at
             }
