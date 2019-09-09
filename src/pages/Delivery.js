@@ -6,9 +6,6 @@ import { listCarrierAsc, listProductAsc, insertDelivery, listDelivery } from '..
 import { Query, Mutation } from 'react-apollo';
 import moment from 'moment';
 
-//Import React Scrit Libraray to load Google object
-import Script from 'react-load-script';
-
 const { Option } = Select;
 const { TextArea } = Input;
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
@@ -26,51 +23,8 @@ export default class Delivery extends Component {
     constructor(props) {
         super(props);
 
-        // Declare State
-        this.state = {
-        city: '',
-        query: ''
-        };
-
-        // Bind Functions
-        this.handleScriptLoad = this.handleScriptLoad.bind(this);
-        this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
-
     }
 
-    handleScriptLoad() {
-        // Declare Options For Autocomplete
-        var options = { types: ['(cities)'] };
-
-        // Initialize Google Autocomplete
-        /*global google*/
-        this.autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), options );
-
-        // Avoid paying for data that you don't need by restricting the
-        // set of place fields that are returned to just the address
-        // components and formatted address
-        this.autocomplete.setFields(['address_components', 'formatted_address']);
-        // Fire Event when a suggested name is selected
-        this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
-      }
-
-    handlePlaceSelect() {
-
-        // Extract City From Address Object
-        let addressObject = this.autocomplete.getPlace();
-        let address = addressObject.address_components;
-
-        // Check if address is valid
-        if (address) {
-          // Set State
-          this.setState(
-            {
-              city: address[0].long_name,
-              query: addressObject.formatted_address,
-            }
-          );
-        }
-      }
 
     render() {
         let address;
@@ -113,17 +67,6 @@ export default class Delivery extends Component {
                             >
                                 <section>
                                     <h3>Local:</h3>
-                                    <Script
-                                        url="https://maps.googleapis.com/maps/api/js?key=AIzaSyB03dybd56hrxp8z4NrPmBaFqxaPQUgsG0&libraries=places"
-                                        onLoad={this.handleScriptLoad}
-                                    />
-                                    <Input
-                                        id="autocomplete"
-                                        placeholder="vamos la"
-                                        hintText="Search City"
-                                        value={this.state.query}
-                                        style={{ margin: '0 auto', maxWidth: 800, }}
-                                        />
                                     <Input
                                         ref={node => { address = node; }}
                                         placeholder="Digite o local da entrega a ser realizada" />
@@ -200,7 +143,7 @@ export default class Delivery extends Component {
                     </Mutation>
                     <ListBox>
                         <h2>Entregas</h2>
-                        {/* <DeliveryList/> */}
+                        <DeliveryList/>
                     </ListBox>
                 </Main>
             </Container>
